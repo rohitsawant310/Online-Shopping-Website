@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script>
+function validateForm()
+{
+	if(document.getElementById("fname").value == "" || document.getElementById("lname").value == "" ||
+			document.getElementById("user_name").value == "" || document.getElementById("pass").value == "" || document.getElementById("pass").value == ""
+	 || document.getElementById("email").value == "" || document.getElementById("date").value == "")
+	
+	{
+		alert("Empty Values Are Not Allowed");	
+	}
+	
+	
+	else if(document.getElementById("rad1").checked == false
+	&& document.getElementById("rad2").checked == false)
+	{
+		alert("Select Some Value In Radio button");
+	}
+	
+	
+	else
+	{
+		var letters = /^[A-Za-z0-9]+$/;
+	/* match() matches strings and returns null if no match is found else returns array of matches */
+		if(document.getElementById("user_name").value.match(letters))	// /^[A-Za-z]+$/ is the
+														//way of specifying the pattern for
+														//accepting only alphabets
+		{
+			//alert("Only alphabets are there");
+		}
+		else
+		{
+			alert("alphabets or digits allowed");
+			document.getElementById('user_name').value = "";
+			document.getElementById('user_name').focus();
+		}
+	
+		if(document.getElementById("email").value.indexOf('@') != -1)
+		{
+			console.log('@ is there');
+			if(document.getElementById("email").value.indexOf('@') != 
+				document.getElementById("email").value.lastIndexOf('@'))
+			{
+				console.log('more than one @');
+				alert('Enter only one @ symbol in email');
+				document.getElementById('email').focus();
+			}
+			else
+			{
+				if(document.getElementById("email").value.lastIndexOf('.') > document.getElementById("email").value.indexOf('@'))
+				{
+					if(document.getElementById("email").value.substring(document.getElementById("email").value.indexOf('@'),
+						document.getElementById("email").value.indexOf('.')+1))
+					{
+						console.log('between @ & .');
+						//alert('email is fine');
+					}
+				}
+				else
+				{
+					alert('Specify a Domain');
+					document.getElementById('email').focus();
+				}
+			}
+		}
+		else
+		{
+			
+			alert('Enter @ in email');
+			document.getElementById('email').focus();
+		}
+		
+		var phone = document.getElementById('telno').value;
+		//console.log(phone.split(''));
+		var valPhone = phone.split('');
+		console.log(phone.length);	//returns total no. of digits
+		console.log(valPhone.length);	//returns total no. of digits
+		
+		if(phone.length < 10 || phone.length > 13 )
+		{
+			alert('Telephone No. should contain min 10 to max 13 digits');
+			document.getElementById('telno').focus();
+		}
+		
+		if(document.getElementById('postcode').value.length != 6)
+		{
+			alert('Post Code should be exactly of 6 digits');
+			document.getElementById('postcode').focus();
+		}
+		
+		if(document.getElementById('confpass').value.match(document.getElementById('pass').value))
+			console.log('Passwords are matching');//alert('Password & Confirm Password are matching');
+		else
+		{
+			alert('Password & Confirm Password should match');
+			document.getElementById('confpass').value = "";
+			document.getElementById('confpass').focus();
+		}
+		
+		
+	}
+}
+
+</script>
+</head>
+<body>
+	<span style="align:center;"><mark>Register</mark></span>
+	<form action="RegisterDB.php" id="form1">
+		<table border='1' bgcolor='grey' width="550" height="550" align="center">
+	         <tr>
+				<td>Enter First Name</td>
+				<td><input type="text" id="fname" name="fname" ></td>
+			</tr>
+			
+			<tr>
+				<td>Enter Last Name</td>
+				<td><input type="text" id="lname" name="lname" ></td>
+			</tr>
+	
+			<tr>
+				<td>Enter User Name</td>
+				<td><input type="text" id="user_name" name="uname"></td>
+			</tr>
+     
+			<tr>
+				<td>Enter Password</td>
+				<td><input type="password" id="pass" name="pass"></td>
+			</tr>
+			
+			<tr>
+				<td>Confirm Password</td>
+				<td><input type="password" id="confpass" value=""></td>
+			</tr>
+
+			<tr>
+				<td>Email</td>
+				<td><input type="email" id="email" required name="email"></td>
+			</tr>
+			
+			<tr>
+				<td>Mobile No.</td>
+				<td><input type="tel" id="telno" nmae="mbno"></td>
+			</tr>
+			
+			<tr>
+				<td>Enter Address</td>
+				<td><input type="text" id="Address" name="addr"></td>
+			</tr>
+			
+			<tr>
+				<td>Postal Code</td>
+				<td><input type="number" id="postcode"></td>
+			</tr>
+
+		
+			
+			<tr>
+				<td>Gender</td>
+				<td>
+					<input type="radio" id="rad1" value="Gender" name="gen">Male
+					<input type="radio" id="rad2" value="Gender" name="gen">Female
+				</td>
+			</tr>
+			
+			
+			<tr>
+				<td>Birth Date</td>				
+				<td><input type="date" id="date" value="Pick a Date"name="DOB"></td>
+			</tr>
+			
+			
+			
+			<tr>
+				<td><input type="reset" value="Clear Detail"></td>
+				<!--  <td><input type="button" id="but" onclick="validateForm()" value="Register"></td>-->
+			</tr>
+		</table>
+		<input type="submit"   value="reg">
+	</form>
+	
+</body>
+</html>
